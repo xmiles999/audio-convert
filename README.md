@@ -76,9 +76,11 @@ ssh -L 3000:127.0.0.1:3000 miles-01
 
 部署后至少检查：`/healthz` 返回 `200` 与正文 `ok`、首页响应含 `Cross-Origin-Opener-Policy: same-origin` 与 `Cross-Origin-Embedder-Policy: require-corp`，以及一次实际的 FFmpeg 转换。
 
-## SEO 与发布
+## SEO、广告与发布
 
 正式域名为 `https://audio-convert.xyh.wiki/`，已用于 canonical、Open Graph、结构化数据和 sitemap。`npm run build` 会预渲染首页工作区，`index.html` 初始 HTML 已包含可读正文、唯一 H1 和主要功能说明；`public/robots.txt` 允许抓取，`public/sitemap.xml` 只包含首页。发布后仍需检查移动端、渲染后 HTML、分享预览、断链和 Search Console 的实际抓取状态。
+
+`index.html` 在 `<head>` 中异步加载 Google AdSense 自动广告脚本，发布商 ID 为 `ca-pub-8907413334960000`。该 ID 是公开站点标识，不作为秘密管理；上线后需同时验证脚本在当前 COOP/COEP 响应头下正常加载，并按目标地区落实广告与 Cookie 告知或同意管理要求。
 
 ## 文档
 

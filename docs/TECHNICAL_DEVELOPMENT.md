@@ -1,6 +1,6 @@
 # 技术开发说明
 
-版本：1.4（对应当前工作区代码）
+版本：1.5（对应当前工作区代码）
 维护规则：更改转换生命周期、工作区交互、FFmpeg 资源、配置或公开页面元数据时同步更新本文和 README。
 
 ## 架构与入口
@@ -27,6 +27,6 @@
 
 ## SEO 与安全
 
-生产域名预设为 `https://audio-convert.xyh.wiki/`，并已写入 canonical、Open Graph URL、`Audio Convert` 品牌分享图、WebApplication JSON-LD 与多格式图标：`favicon-48.png` 是浏览器和搜索结果使用的主图标（符合 Google 的 48 像素倍数要求），`apple-touch-icon.png` 用于 iOS；SVG 标识仍供站点界面和分享资产复用。页面使用系统字体，不在运行时加载第三方字体。`index.html` 以 `defer` 加载自托管的 `https://umami.xyh.wiki/script.js`，并使用网站 ID `93a87f55-9c36-4b6d-acbf-408a4a00cd93` 统计访问；该跨源脚本以匿名 CORS 模式加载，以兼容生产环境的 COEP 响应头。网站 ID 不是认证秘密，但 Umami 服务端数据与访问权限必须由部署方保护，并按适用地区提供统计告知。首页由构建期 SSG 生成，初始 HTML 中包含工作区的唯一 H1、功能说明和语义化操作区；`index.html` 使用 `index, follow`，`robots.txt` 声明 sitemap，`sitemap.xml` 仅包含规范首页。发布后仍须验证渲染后 HTML、移动端、分享预览、断链和 Search Console 抓取状态。
+生产域名预设为 `https://audio-convert.xyh.wiki/`，并已写入 canonical、Open Graph URL、`Audio Convert` 品牌分享图、WebApplication JSON-LD 与多格式图标：`favicon-48.png` 是浏览器和搜索结果使用的主图标（符合 Google 的 48 像素倍数要求），`apple-touch-icon.png` 用于 iOS；SVG 标识仍供站点界面和分享资产复用。页面使用系统字体，不在运行时加载第三方字体。`index.html` 以 `defer` 加载自托管的 `https://umami.xyh.wiki/script.js`，并使用网站 ID `93a87f55-9c36-4b6d-acbf-408a4a00cd93` 统计访问；该跨源脚本以匿名 CORS 模式加载，以兼容生产环境的 COEP 响应头。`index.html` 还会在 `<head>` 中以 `async` 和匿名 CORS 模式加载 Google AdSense 自动广告脚本，发布商 ID 为 `ca-pub-8907413334960000`。Umami 网站 ID 和 AdSense 发布商 ID 都是公开站点标识，不是认证秘密；Umami 服务端数据与访问权限仍须由部署方保护，广告和统计功能则应按适用地区提供告知或同意管理。首页由构建期 SSG 生成，初始 HTML 中包含工作区的唯一 H1、功能说明和语义化操作区；`index.html` 使用 `index, follow`，`robots.txt` 声明 sitemap，`sitemap.xml` 仅包含规范首页。发布后仍须验证 AdSense 在当前 COOP/COEP 响应头下可正常加载，并检查渲染后 HTML、移动端、广告引起的布局变化、分享预览、断链和 Search Console 抓取状态。
 
 媒体不会离开浏览器；应用不包含秘密或上传 API。FFmpeg 资源仅从已打包/本地路径加载，部署时应保留 COOP/COEP，并审核第三方依赖的许可证和安全更新。助手反向代理只能指向运维控制的 Bot 上游；其站点配置必须仅允许 `https://audio-convert.xyh.wiki`，知识文档不得包含用户上传媒体或密钥。输出文件名在下载前剥离路径和平台保留字符；转换失败仅向用户呈现通用原因与恢复建议，不回显 FFmpeg 内部参数或堆栈。
